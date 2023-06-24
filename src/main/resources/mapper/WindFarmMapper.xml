@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.WindFarmMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.WindFarm">
+        <id column="id" property="id" />
+        <result column="farm_id" property="farmId" />
+        <result column="location" property="location" />
+        <result column="wind_speed_pred" property="windSpeedPred" />
+        <result column="wind_direction" property="windDirection" />
+        <result column="temperature" property="temperature" />
+        <result column="humidity" property="humidity" />
+        <result column="pressure" property="pressure" />
+        <result column="prepower" property="prepower" />
+        <result column="wind_speed_real" property="windSpeedReal" />
+        <result column="round_power" property="roundPower" />
+        <result column="yd15" property="yd15" />
+        <result column="type" property="type" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+</mapper>
