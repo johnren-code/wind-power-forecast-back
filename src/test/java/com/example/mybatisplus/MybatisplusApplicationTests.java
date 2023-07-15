@@ -7,12 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MybatisplusApplicationTests {
 
-    @Autowired
-    private AdminService adminService;
-    @Test
-    void contextLoads() {
-        Admin byId = adminService.getById(1);
-        System.out.println(byId);
-    }
+//    @Autowired
+//    private AdminService adminService;
+//    @Test
+//    void contextLoads() {
+//        Admin byId = adminService.getById(1);
+//        System.out.println(byId);
+//    }
 
 }

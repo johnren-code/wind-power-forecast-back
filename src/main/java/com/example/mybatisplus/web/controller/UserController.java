@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import com.example.mybatisplus.model.domain.User;
  *
  *
  * @author rbl
- * @since 2023-05-21
+ * @since 2023-06-25
  * @version v1.0
  */
 @Controller
@@ -28,7 +29,28 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    /**
+     * 描述：登录
+     *
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse login(@RequestBody User user)throws Exception {
+        String account = user.getAccount();
+        String password = user.getPassword();
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("account",account);
+        User queryUser = userService.getOne(userQueryWrapper);
+        if(queryUser == null){
+            return JsonResponse.message(false,"该用户不存在");
+        }else {
+            if(!queryUser.getPassword().equals(password)){
+                return JsonResponse.message(false,"密码错误");
+            }else {
+                return JsonResponse.message(true,"登陆成功");
+            }
+        }
+    }
     /**
     * 描述：根据Id 查询
     *
