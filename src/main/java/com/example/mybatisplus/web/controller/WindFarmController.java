@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -10,6 +11,9 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.WindFarmService;
 import com.example.mybatisplus.model.domain.WindFarm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -17,7 +21,7 @@ import com.example.mybatisplus.model.domain.WindFarm;
  *
  *
  * @author rbl
- * @since 2023-06-25
+ * @since 2023-07-16
  * @version v1.0
  */
 @Controller
@@ -74,5 +78,16 @@ public class WindFarmController {
         windFarmService.save(windFarm);
         return JsonResponse.success(null);
     }
+
+    @RequestMapping(value = "getFarmDataById",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getFarmDataById(@RequestParam("farm_id") Long farmId){
+        List<WindFarm> windFarmList = new ArrayList<>();
+        QueryWrapper<WindFarm> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("farm_id",farmId);
+        windFarmList = windFarmService.list(queryWrapper);
+        return JsonResponse.success(windFarmList);
+    }
+
 }
 

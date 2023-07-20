@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author rbl
- * @since 2023-06-25
+ * @since 2023-07-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,6 +32,8 @@ public class WindFarm extends Model<WindFarm> {
     private Long id;
 
     private Long farmId;
+
+    private LocalDateTime datetime;
 
     private String location;
 
@@ -47,6 +50,8 @@ public class WindFarm extends Model<WindFarm> {
     private Integer prepower;
 
     private Float windSpeedReal;
+
+    private Float roundWs;
 
     private Integer roundPower;
 

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author rbl
- * @since 2023-06-25
+ * @since 2023-07-16
  */
 public interface WindFarmMapper extends BaseMapper<WindFarm> {
 
