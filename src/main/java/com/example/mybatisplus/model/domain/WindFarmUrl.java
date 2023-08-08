@@ -17,38 +17,28 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author rbl
- * @since 2023-06-25
+ * @since 2023-07-20
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="User对象", description="")
-public class User extends Model<User> {
+@ApiModel(value="WindFarmUrl对象", description="")
+public class WindFarmUrl extends Model<WindFarmUrl> {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private String name;
+    private Long farmId;
 
-    private Boolean gender;
+    private String originFileUrl;
 
-    private Integer age;
+    private String processFileUrl;
 
-    private String account;
-
-    private String password;
-
-    private Long phoneNumber;
-
-    private String email;
-
-    private String description;
+    private Integer type;
 
     private Integer isDeleted;
-
-    private String avatar;
 
 
     @Override

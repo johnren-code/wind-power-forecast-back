@@ -30,7 +30,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Map upload(MultipartFile file) throws IOException {
-        Map<String, String> map = storeFile(file, Paths.get(fileUploadPath, "image").toString());
+        Map<String, String> map = storeFile(file, Paths.get(fileUploadPath, "file").toString());
         return map;
     }
 
@@ -53,7 +53,7 @@ public class FileServiceImpl implements FileService {
             out.write(file.getBytes());
             out.flush();
             Map<String, String> map = new HashMap();
-            map.put("url", "./image" + relPath);
+            map.put("url", "./file" + relPath);
             log.info(relPath);
             return map;
         } catch (FileNotFoundException fnfe) {

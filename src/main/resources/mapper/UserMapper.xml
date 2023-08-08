@@ -12,6 +12,7 @@
         <result column="password" property="password" />
         <result column="phone_number" property="phoneNumber" />
         <result column="email" property="email" />
+        <result column="avatar" property="avatar" />
         <result column="description" property="description" />
         <result column="is_deleted" property="isDeleted" />
     </resultMap>
