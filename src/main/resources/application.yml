@@ -4,9 +4,9 @@ spring:
     port: 6379
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/windpowerforecast?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://sh-cynosdbmysql-grp-d2nmcw3c.sql.tencentcdb.com:27710/windpowerforecast?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
     username: root
-    password: root
+    password: rbl123.+
   mvc:
     format:
       date: yyyy-MM-dd
