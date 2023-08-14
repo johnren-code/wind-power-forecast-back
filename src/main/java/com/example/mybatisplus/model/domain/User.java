@@ -50,6 +50,8 @@ public class User extends Model<User> {
 
     private String avatar;
 
+    private Integer role;
+
 
     @Override
     protected Serializable pkVal() {

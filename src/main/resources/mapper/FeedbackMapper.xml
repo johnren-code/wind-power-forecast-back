@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.FeedbackMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Feedback">
+        <id column="id" property="id" />
+        <result column="farm_id" property="farmId" />
+        <result column="state" property="state" />
+        <result column="description" property="description" />
+        <result column="file_url" property="fileUrl" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+    <resultMap id="mapWithRoleName" type="com.example.mybatisplus.model.vo.FeedbackVO" extends="BaseResultMap">
+        <result column="stateName" property="stateName"/>
+    </resultMap>
+    <select id="selectMyPage" resultType="com.example.mybatisplus.model.vo.FeedbackVO">
+        select a.*,d.item_name as stateName from feedback a left join dictionary d on a.state = d.item_value
+        <where>
+            d.type = 'STATE'
+            <if test="feedback.farmId != null and feedback.farmId != ''">
+                and a.farm_id = #{feedback.farmId}
+            </if>
+            <if test="feedback.state != null">
+                and a.state = #{feedback.state}
+            </if>
+        </where>
+
+    </select>
+</mapper>

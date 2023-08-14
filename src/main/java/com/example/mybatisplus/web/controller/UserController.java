@@ -1,9 +1,13 @@
 package com.example.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.common.utls.MailUtils;
+import com.example.mybatisplus.model.dto.DeleteDTO;
+import com.example.mybatisplus.model.dto.PageDTO;
 import com.example.mybatisplus.model.dto.UserInfoDTO;
 import com.example.mybatisplus.model.dto.UserRegister;
+import com.example.mybatisplus.model.vo.UserVO;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.UserService;
 import com.example.mybatisplus.model.domain.User;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -59,7 +64,29 @@ public class UserController {
             }
         }
     }
-
+    /**
+     * 描述：超级管理员账号密码登录
+     */
+    @RequestMapping(value = "/loginBySuper", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse loginBySuper(@RequestBody User user) throws Exception {
+        String account = user.getAccount();
+        String password = user.getPassword();
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        userQueryWrapper.eq("account", account);
+        User queryUser = userService.getOne(userQueryWrapper);
+        if (queryUser == null) {
+            return JsonResponse.message(false, "该用户不存在");
+        } else {
+            if (!queryUser.getPassword().equals(password)) {
+                return JsonResponse.message(false, "密码错误");
+            } else if (queryUser.getRole()!=1){
+                return JsonResponse.message(false, "登陆的角色不为超级管理员");
+            }else {
+                return JsonResponse.success(queryUser);
+            }
+        }
+    }
     /**
      * 描述：邮箱验证码登录
      */
@@ -111,6 +138,7 @@ public class UserController {
         user.setPassword(password);
         user.setAvatar("./file/202307/default.jpg");
         user.setEmail(email);
+        user.setRole(3);
         userService.save(user);
         return JsonResponse.success(user);
     }
@@ -149,7 +177,39 @@ public class UserController {
         userService.saveOrUpdate(byId);
         return JsonResponse.success(byId);
     }
+    @RequestMapping(value = "list",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse queryPageList(PageDTO pageDTO, User user){
+        Page<UserVO> page = userService.pageList(pageDTO,user);
+        return JsonResponse.success(page);
+    }
 
+    @RequestMapping(value = "singleDelete",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse singDelete(@RequestBody DeleteDTO deleteDTO){
+        boolean result=userService.removeById(deleteDTO.getId());
+        return JsonResponse.success(result);
+    }
+
+    @RequestMapping(value = "batchDeletes",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse batchDeletes(@RequestBody DeleteDTO deleteDTO){
+        boolean result=userService.removeByIds(deleteDTO.getIds());
+        return JsonResponse.success(result);
+    }
+
+    @RequestMapping(value = "exportUser",method = RequestMethod.POST)
+    @ResponseBody
+    public void exportUser(HttpServletResponse response, @RequestBody User user){
+        userService.exportUser(response,user);
+    }
+
+    @RequestMapping(value = "update",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse update(@RequestBody User user){
+        boolean b = userService.updateById(user);
+        return JsonResponse.success(b);
+    }
     /**
      * 描述：根据Id 查询
      */

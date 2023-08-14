@@ -36,6 +36,10 @@ public class WindFarmUrl extends Model<WindFarmUrl> {
 
     private String processFileUrl;
 
+    private String location;
+
+    private String model;
+
     private Integer type;
 
     private Integer isDeleted;

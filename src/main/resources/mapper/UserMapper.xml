@@ -14,7 +14,26 @@
         <result column="email" property="email" />
         <result column="avatar" property="avatar" />
         <result column="description" property="description" />
+        <result column="role" property="role" />
         <result column="is_deleted" property="isDeleted" />
     </resultMap>
+    <resultMap id="mapWithRoleName" type="com.example.mybatisplus.model.vo.UserVO" extends="BaseResultMap">
+        <result column="roleName" property="roleName"/>
+    </resultMap>
+    <select id="selectMyPage" resultType="com.example.mybatisplus.model.vo.UserVO">
+        select a.*,d.item_name as roleName from user a left join dictionary d on a.role = d.item_value
+        <where>
+            a.is_deleted = 0 and a.role != 1 and d.type = 'ROLE'
+            <if test="user.account != null and user.account != ''">
+                and a.account = #{user.account}
+            </if>
+            <if test="user.password != null and user.password != ''">
+                and a.password = #{user.password}
+            </if>
+            <if test="user.role != null">
+                and a.role = #{user.role}
+            </if>
+        </where>
 
+    </select>
 </mapper>

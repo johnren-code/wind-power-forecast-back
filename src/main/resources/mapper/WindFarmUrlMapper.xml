@@ -8,6 +8,8 @@
         <result column="farm_id" property="farmId" />
         <result column="origin_file_url" property="originFileUrl" />
         <result column="process_file_url" property="processFileUrl" />
+        <result column="location" property="location" />
+        <result column="model" property="model" />
         <result column="type" property="type" />
         <result column="is_deleted" property="isDeleted" />
     </resultMap>

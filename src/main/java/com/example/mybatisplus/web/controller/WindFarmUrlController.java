@@ -46,6 +46,20 @@ public class WindFarmUrlController {
     }
 
     /**
+     * 描述：根据farm_id 查询
+     *
+     */
+    @RequestMapping(value = "/getByFarmId", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse getByFarmId(@RequestBody WindFarmUrl windFarmUrl)throws Exception {
+        Long farmId = windFarmUrl.getFarmId();
+        QueryWrapper<WindFarmUrl> windFarmUrlQueryWrapper = new QueryWrapper<>();
+        windFarmUrlQueryWrapper.eq("farm_id",farmId);
+        WindFarmUrl one = windFarmUrlService.getOne(windFarmUrlQueryWrapper);
+        return JsonResponse.success(one);
+    }
+
+    /**
     * 描述：根据Id删除
     *
     */
