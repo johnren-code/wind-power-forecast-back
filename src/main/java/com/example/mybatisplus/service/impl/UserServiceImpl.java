@@ -32,6 +32,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public Page<UserVO> pageList(PageDTO pageDTO, User user) {
         Page<UserVO> page = new Page<>(pageDTO.getPageNo(), pageDTO.getPageSize());
+        System.out.println("pagesize");
+        System.out.println(pageDTO.getPageSize());
         QueryWrapper<User> adminQueryWrapper = new QueryWrapper<>();
         if(!StringUtils.isBlank(user.getAccount())){
             adminQueryWrapper.like("account",user.getAccount());
